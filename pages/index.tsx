@@ -1,7 +1,14 @@
-export default function Home() {
+import Menu from '../components/Menu'
+
+const Home = () => {
   return (
-    <div className="container mx-auto px-4">
-      Hello Next!
-    </div>
-  )
-}
+    <>
+      <Menu />
+      <div>
+        Hello this is home
+      </div>
+    </>
+  );
+};
+
+export default Home;
