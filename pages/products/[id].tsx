@@ -1,7 +1,10 @@
-import { InferGetServerSidePropsType } from 'next'
 import { useRecoilState } from 'recoil'
-import { cartState } from '../../components/States'
+
 import Image from 'next/image'
+import DefaultErrorPage from 'next/error'
+import { InferGetServerSidePropsType } from 'next'
+
+import { cartState } from '../../components/States'
 import Menu from '../../components/Menu'
 
 interface Product {
@@ -16,16 +19,26 @@ interface Product {
 export const getServerSideProps = async (context: any) => {
 	const resp = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/products/${context.params.id}`)
 	const product: Product = await resp.json()
+	let errorCode = resp.status
+
+	if (product === null) {
+		errorCode = 404
+	}
 
 	return {
 		props: {
+			errorCode,
 			product
 		}
 	}
 }
 
-const ProductDetail = ({ product }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ProductDetail = ({ errorCode, product }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [cartItem, setCartItem] = useRecoilState(cartState)
+
+	if (errorCode != 200) {
+		return <DefaultErrorPage statusCode={errorCode} />
+	}
 
 	return (
 		<>
