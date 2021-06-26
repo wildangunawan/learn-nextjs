@@ -13,9 +13,7 @@ interface IProduct {
 	image: string
 }
 
-const Show = () => {
-	const [cartItem, setCartItem] = useRecoilState(cartState)
-
+const show = (cartItem, setCartItem) => {
 	return (
 		<>
 			{cartItem.map((item: IProduct, idx: Key) => {
@@ -41,6 +39,7 @@ const Show = () => {
 }
 
 const Cart = () => {
+	const [cartItem, setCartItem] = useRecoilState(cartState)
 	const no_of_item_in_cart = useRecoilValue(noOfItemInCart)
 
 	return (
@@ -48,7 +47,7 @@ const Cart = () => {
 			<div>
 				<Menu />
 				<div className="container mx-auto my-4 max-w-5xl border border-gray-400 rounded-lg p-4 flex flex-col gap-8">
-					{no_of_item_in_cart > 0 ? <Show /> : <p className="text-center">No item in cart</p>}
+					{no_of_item_in_cart > 0 ? show(cartItem, setCartItem) : <p className="text-center">No item in cart</p>}
 				</div>
 			</div>
 		</>
