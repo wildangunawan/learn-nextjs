@@ -1,6 +1,5 @@
 import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
-import Head from 'next/head'
 import Menu from '../../components/Menu'
 
 interface Product {
@@ -26,12 +25,6 @@ export const getServerSideProps = async (context: any) => {
 const ProductDetail = ({ product }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	return (
 		<>
-			<Head>
-				<meta charSet="UTF-8" />
-				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<title>Document</title>
-			</Head>
 			<div>
 				<Menu />
 				<div className="container mx-auto my-4 max-w-5xl border border-gray-400 rounded-lg p-4 flex flex-col md:flex-row gap-8 justify-around items-center">

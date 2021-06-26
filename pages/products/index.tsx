@@ -1,4 +1,6 @@
 import { InferGetServerSidePropsType } from 'next'
+import { useRecoilState } from 'recoil'
+import { cartState } from '../../components/States'
 import Link from 'next/link'
 import Image from 'next/image'
 import Menu from '../../components/Menu'
@@ -26,6 +28,8 @@ export const getServerSideProps = async () => {
 }
 
 const ProductIndex = ({ products }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+	const [cartItem, setCartItem] = useRecoilState(cartState)
+
 	return (
 		<>
 			<Menu />
@@ -50,7 +54,7 @@ const ProductIndex = ({ products }: InferGetServerSidePropsType<typeof getServer
 										<p className="text-gray-500">Price</p>
 										<p className="font-semibold">${product.price}</p>
 									</div>
-									<button className="border border-gray-300 rounded-xl font-medium text-gray-600 p-4 hover:bg-gray-200">Add to cart</button>
+									<button className="border border-gray-300 rounded-xl font-medium text-gray-600 p-4 hover:bg-gray-200" onClick={(e) => setCartItem([...cartItem, product])}>Add to cart</button>
 								</div>
 							</div>
 						</div>
