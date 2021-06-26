@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { SetterOrUpdater, useRecoilState, useRecoilValue } from 'recoil'
 import { cartState, noOfItemInCart } from '../components/States'
 import Image from 'next/image'
 import Menu from '../components/Menu'
@@ -13,7 +13,9 @@ interface IProduct {
 	image: string
 }
 
-const show = (cartItem, setCartItem) => {
+interface Products extends Array<IProduct> { }
+
+const show = (cartItem: Products, setCartItem: SetterOrUpdater<Products>) => {
 	return (
 		<>
 			{cartItem.map((item: IProduct, idx: Key) => {
